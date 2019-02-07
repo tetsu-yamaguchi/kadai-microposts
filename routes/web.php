@@ -19,6 +19,8 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
+Route::get('/index', 'MicropostsController@index');
+
 // ユーザ機能
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
@@ -29,6 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
+     Route::group(['prefix' => 'users/{id}'], function () {
+        Route::post('favorite', 'UserFavoriteController@store')->name('user.favorite');
+        Route::delete('unfavorite', 'UserFavoriteController@destroy')->name('user.unfavorite');
+        Route::get('favoriting', 'UsersController@favoriting')->name('users.favoriting');
+        /*Route::get('is_favoriting', 'UserFavoriteController@is_favoriting')->name('users.is_favoriting');*/
+    });
+    
     
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
 });
