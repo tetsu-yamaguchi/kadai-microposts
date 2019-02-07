@@ -19,6 +19,7 @@
                                 <li>{!! link_to_route('users.favoriting', 'Favorite', ['id' => Auth::id()]) !!}</li>
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
                         </ul>
+                        
                     </li>
                 @else
                     <li class="nav-item">{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link']) !!}</li>
